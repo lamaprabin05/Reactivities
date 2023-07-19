@@ -19,6 +19,7 @@ builder.Services.AddCors(opt =>
 {
    opt.AddPolicy("CorsPolicy", policy => 
    {
+    //allowed react local dev.
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
    }); 
 });
