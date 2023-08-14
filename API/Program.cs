@@ -1,5 +1,8 @@
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using Application.Activities;
+using Microsoft.Extensions.DependencyInjection;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,9 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
    }); 
 });
+
+//builder.Services.AddMediatR(typeof(List.Handler).Assembly);
+builder.Services.AddMediatR(typeof(List.Handler));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +54,6 @@ try
 catch(Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex,"An Error occured during migraiton");
+    logger.LogError(ex,"An Error occured during migration");
 }
 app.Run();
